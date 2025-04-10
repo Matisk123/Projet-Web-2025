@@ -12,25 +12,42 @@
         <div class="lg:col-span-2">
             <div class="grid">
                 <div class="card card-grid h-full min-w-full">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            Block 1
-                        </h3>
-                    </div>
-                    <div class="card-body flex flex-col gap-5">
 
+                    <!-- Promotion -->
+                    <div class="card-header flex justify-between items-center">
+                        <h3 class="card-title">
+                            <a href="{{ route('cohort.index') }}" class="text-blue-500">Promotion</a>
+                        </h3>
+                        <span>{{ $totalCohorts }}</span>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="lg:col-span-1">
-            <div class="card card-grid h-full min-w-full">
-                <div class="card-header">
-                    <h3 class="card-title">
-                        Block 2
-                    </h3>
-                </div>
-                <div class="card-body flex flex-col gap-5">
+
+                    <!-- Etudiant -->
+                    <div class="card-header flex justify-between items-center">
+                        <h3 class="card-title">
+                            <a href="{{ route('student.index') }}" class="text-blue-500">Étudiant</a>
+                        </h3>
+                        <span>{{ $totalStudents }}</span>
+                    </div>
+
+                    <!-- Enseignant -->
+                    <div class="card-header flex justify-between items-center">
+                        <h3 class="card-title">
+                            <a href="{{ route('teacher.index') }}" class="text-blue-500">Enseignant</a>
+                        </h3>
+                        <span>{{ $totalTeachers }}</span>
+                    </div>
+
+                    <!-- Groupes -->
+                    <div class="card-header flex justify-between items-center">
+                        <h3 class="card-title">
+                            <a href="{{ route('group.index') }}" class="text-blue-500">Groupes</a>
+                        </h3>
+                        <span>{{ $totalGroups }}</span>
+                    </div>
+
+                    <div class="card-body flex flex-col gap-5">
+                        <!-- Ton contenu supplémentaire -->
+                    </div>
                 </div>
             </div>
         </div>
