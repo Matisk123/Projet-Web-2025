@@ -41,7 +41,6 @@ class CohortController extends Controller
             'description' => 'required|string|max:255',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
-            'school_id' => 'required|exists:schools,id'
         ]);
 
         /*$cohort = Cohort::create($validated);
@@ -57,11 +56,19 @@ class CohortController extends Controller
             'description' => $request->description,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
-            'school_id' => $request->school_id,
+            'school_id' => 1,
         ]);
+
+        $cohort->delete();
 
         return redirect()->route('cohort.index')->with('success', 'Promotion ajoutée avec succès!');
     }
+    public function destroy($id)
+    {
+        $promotion = Cohort::findOrFail($id);
+        $promotion->delete();
 
+        return redirect()->route('cohort.index')->with('success', 'Promotion supprimée avec succès.');
+    }
 
 }

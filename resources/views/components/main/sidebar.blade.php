@@ -59,22 +59,18 @@
                             </a>
                         </div>
                         <!-- @todo CETTE PARTIE EST A GENERER DEPUIS LA BDD -->
-                        <div class="menu-item">
-                            <a class="menu-link py-2 px-2.5 rounded-md border border-transparent menu-item-active:border-gray-200 menu-item-active:bg-light menu-link-hover:bg-light menu-link-hover:border-gray-200"
-                               href="#">
-                               <span class="menu-title text-2sm text-gray-800 menu-item-active:text-gray-900 menu-link-hover:text-gray-900">
-                                B1 - Cergy - 24-25
-                               </span>
-                            </a>
-                        </div>
-                        <div class="menu-item">
-                            <a class="menu-link py-2 px-2.5 rounded-md border border-transparent menu-item-active:border-gray-200 menu-item-active:bg-light menu-link-hover:bg-light menu-link-hover:border-gray-200"
-                               href="#">
-                               <span class="menu-title text-2sm text-gray-800 menu-item-active:text-gray-900 menu-link-hover:text-gray-900">
-                                B2 - Cergy - 24-25
-                               </span>
-                            </a>
-                        </div>
+                        @foreach(\App\Models\Cohort::all() as $cohort)
+                            <div class="menu-item">
+                                <a class="menu-link py-2 px-2.5 rounded-md border border-transparent menu-item-active:border-gray-200 menu-item-active:bg-light menu-link-hover:bg-light menu-link-hover:border-gray-200"
+                                   href="{{ route('cohort.show', $cohort) }}">
+           <span class="menu-title text-2sm text-gray-800 menu-item-active:text-gray-900 menu-link-hover:text-gray-900">
+               {{ $cohort->name }}
+           </span>
+                                </a>
+                            </div>
+                        @endforeach
+
+
                         <!-- FIN -->
                    </div>
                 </div>

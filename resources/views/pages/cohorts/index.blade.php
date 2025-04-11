@@ -22,23 +22,24 @@
                                     <thead>
                                     <tr>
                                         <th class="min-w-[280px]">
-                                                <span class="sort asc">
-                                                    <span class="sort-label">Promotion</span>
-                                                    <span class="sort-icon"></span>
-                                                </span>
+                                            <span class="sort asc">
+                                                <span class="sort-label">Promotion</span>
+                                                <span class="sort-icon"></span>
+                                            </span>
                                         </th>
                                         <th class="min-w-[135px]">
-                                                <span class="sort">
-                                                    <span class="sort-label">Year</span>
-                                                    <span class="sort-icon"></span>
-                                                </span>
+                                            <span class="sort">
+                                                <span class="sort-label">Year</span>
+                                                <span class="sort-icon"></span>
+                                            </span>
                                         </th>
                                         <th class="min-w-[135px]">
-                                                <span class="sort">
-                                                    <span class="sort-label">Students</span>
-                                                    <span class="sort-icon"></span>
-                                                </span>
+                                            <span class="sort">
+                                                <span class="sort-label">Students</span>
+                                                <span class="sort-icon"></span>
+                                            </span>
                                         </th>
+                                        <th class="min-w-[100px]">Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -51,12 +52,22 @@
                                                         {{ $promotion->name }}
                                                     </a>
                                                     <span class="text-2sm text-gray-700 font-normal leading-3">
-                                                            {{ $promotion->description }}  <!-- Changed here -->
-                                                        </span>
+                                                        {{ $promotion->description }}
+                                                    </span>
                                                 </div>
                                             </td>
                                             <td>{{ $promotion->start_date }} - {{ $promotion->end_date }}</td>
                                             <td>{{ $promotion->students_count }}</td>
+                                            <td>
+                                                <form action="{{ route('cohort.destroy', $promotion->id) }}" method="POST"
+                                                      onsubmit="return confirm('Voulez-vous vraiment supprimer cette promotion ?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="text-red-600 text-xs hover:underline">
+                                                        Supprimer
+                                                    </button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -93,17 +104,12 @@
                         @csrf
 
                         <x-forms.input name="name" :label="__('Name')" required />
-
-                        <x-forms.input name="description" :label="__('Description')" required /> <!-- Changed here -->
-
+                        <x-forms.input name="description" :label="__('Description')" required />
                         <x-forms.input type="date" name="start_date" :label="__('Start of the year')" required />
-
                         <x-forms.input type="date" name="end_date" :label="__('End of the year')" required />
 
-                        <x-forms.input name="school_id" :label="__('School')" required />
-
                         <x-forms.primary-button>
-                            {{ __('Submit') }}
+                            {{ __('Valider') }}
                         </x-forms.primary-button>
                     </form>
                 </div>
