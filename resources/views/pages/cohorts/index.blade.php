@@ -95,7 +95,7 @@
             <div class="card h-full">
                 <div class="card-header">
                     <h3 class="card-title">
-                        Add a promotion
+                        Ajouté une Promotion
                     </h3>
                 </div>
                 <div class="card-body flex flex-col gap-5">
@@ -103,8 +103,8 @@
                     <form action="{{ route('cohort.store') }}" method="POST">
                         @csrf
 
-                        <x-forms.input name="name" :label="__('Name')" required />
-                        <x-forms.input name="description" :label="__('Description')" required />
+                        <x-forms.input name="name" :label="__('Nom de la promotion')" required />
+                        <x-forms.input name="description" :label="__('Lieu')" required />
                         <x-forms.input type="date" name="start_date" :label="__('Start of the year')" required />
                         <x-forms.input type="date" name="end_date" :label="__('End of the year')" required />
 

@@ -1,6 +1,8 @@
 <?php
 
 
+
+
 use App\Http\Controllers\CohortController;
 use App\Http\Controllers\CommonLifeController;
 use App\Http\Controllers\DashboardController;
@@ -13,11 +15,17 @@ use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
 
+
+
 // Redirect the root path to /dashboard
 Route::redirect('/', 'dashboard');
 
 
+
+
 Route::middleware('auth')->group(function () {
+
+
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -25,9 +33,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
+
+
     Route::middleware('verified')->group(function () {
         // Dashboard
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+
 
 
         // Cohorts
@@ -35,26 +47,36 @@ Route::middleware('auth')->group(function () {
         Route::get('/cohort/{cohort}', [CohortController::class, 'show'])->name('cohort.show');
         Route::post('/cohorts', [CohortController::class, 'store'])->name('cohort.store');
         Route::delete('/cohort/{cohort}', [\App\Http\Controllers\CohortController::class, 'destroy'])->name('cohort.destroy');
-        Route::delete('/cohorts/{id}', [CohortController::class, 'destroy'])->name('cohort.destroy');
+
 
         // Teachers
         Route::get('/teachers', [TeacherController::class, 'index'])->name('teacher.index');
 
 
+
+
         // Students
         Route::get('students', [StudentController::class, 'index'])->name('student.index');
+        Route::post('/students', [StudentController::class, 'store'])->name('student.store');
+
 
 
         // Knowledge
         Route::get('knowledge', [KnowledgeController::class, 'index'])->name('knowledge.index');
 
 
+
+
         // Groups
         Route::get('groups', [GroupController::class, 'index'])->name('group.index');
 
 
+
+
         // Retro
         route::get('retros', [RetroController::class, 'index'])->name('retro.index');
+
+
 
 
         // Common life
@@ -62,7 +84,11 @@ Route::middleware('auth')->group(function () {
     });
 
 
+
+
 });
+
+
 
 
 Route::get('/jeu', function () {
@@ -70,9 +96,14 @@ Route::get('/jeu', function () {
 })->name('jeu');
 
 
+
+
 Route::get('/score', function () {
     return view('score');
 })->name('score');
 
 
+
+
 require __DIR__.'/auth.php';
+

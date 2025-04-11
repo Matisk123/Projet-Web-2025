@@ -59,14 +59,13 @@ class CohortController extends Controller
             'school_id' => 1,
         ]);
 
-        $cohort->delete();
 
         return redirect()->route('cohort.index')->with('success', 'Promotion ajoutée avec succès!');
     }
-    public function destroy($id)
+    public function destroy(Cohort $cohort)
     {
-        $promotion = Cohort::findOrFail($id);
-        $promotion->delete();
+        $cohort->delete();
+
 
         return redirect()->route('cohort.index')->with('success', 'Promotion supprimée avec succès.');
     }

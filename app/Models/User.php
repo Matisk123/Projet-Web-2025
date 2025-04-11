@@ -1,6 +1,8 @@
 <?php
 
+
 namespace App\Models;
+
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,10 +12,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+
 
     /**
      * The attributes that are mass assignable.
@@ -23,9 +27,11 @@ class User extends Authenticatable
     protected $fillable = [
         'last_name',
         'first_name',
+        'birth_date',
         'email',
         'password',
     ];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -36,6 +42,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
 
     /**
      * Get the attributes that should be cast.
@@ -50,6 +57,7 @@ class User extends Authenticatable
         ];
     }
 
+
     /**
      * This function returns the full name of the connected user
      * @return string
@@ -58,6 +66,7 @@ class User extends Authenticatable
     {
         return $this->last_name . ' ' . $this->first_name;
     }
+
 
     /**
      * This function returns the short name of the connected user
@@ -68,9 +77,11 @@ class User extends Authenticatable
         return $this->first_name . ' ' . $this->last_name[0] . '.';
     }
 
+
     /**
      * Retrieve the school of the user
      */
+
 
     /**
      * @return (Model&object)|null
@@ -81,4 +92,11 @@ class User extends Authenticatable
             ->withPivot('role')
             ->first();
     }
+
+    public function userSchools(): HasMany
+    {
+        return $this->hasMany(UserSchool::class);
+    }
+
 }
+
