@@ -13,7 +13,7 @@
             <div class="grid">
                 <div class="card card-grid h-full min-w-full">
 
-                    <!-- Promotion -->
+                    <!-- Cohort -->
                     <div class="card-header flex justify-between items-center">
                         <h3 class="card-title">
                             <a href="{{ route('cohort.index') }}" class="text-blue-500">Promotion</a>
@@ -21,7 +21,7 @@
                         <span>{{ $totalCohorts }}</span>
                     </div>
 
-                    <!-- Etudiant -->
+                    <!-- Student -->
                     <div class="card-header flex justify-between items-center">
                         <h3 class="card-title">
                             <a href="{{ route('student.index') }}" class="text-blue-500">Étudiant</a>
@@ -29,7 +29,7 @@
                         <span>{{ $totalStudents }}</span>
                     </div>
 
-                    <!-- Enseignant -->
+                    <!-- Teachers -->
                     <div class="card-header flex justify-between items-center">
                         <h3 class="card-title">
                             <a href="{{ route('teacher.index') }}" class="text-blue-500">Enseignant</a>
@@ -37,7 +37,7 @@
                         <span>{{ $totalTeachers }}</span>
                     </div>
 
-                    <!-- Groupes -->
+                    <!-- Groups -->
                     <div class="card-header flex justify-between items-center">
                         <h3 class="card-title">
                             <a href="{{ route('group.index') }}" class="text-blue-500">Groupes</a>
@@ -46,7 +46,6 @@
                     </div>
 
                     <div class="card-body flex flex-col gap-5">
-                        <!-- Ton contenu supplémentaire -->
                     </div>
                 </div>
             </div>

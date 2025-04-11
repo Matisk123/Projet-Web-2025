@@ -5,6 +5,7 @@
         </h1>
     </x-slot>
 
+
     <!-- begin: grid -->
     <div class="grid lg:grid-cols-3 gap-5 lg:gap-7.5 items-stretch">
         <div class="lg:col-span-2">
@@ -20,28 +21,28 @@
                                     <thead>
                                     <tr>
                                         <th class="min-w-[135px]">
-                                            <span class="sort asc">
-                                                 <span class="sort-label">Nom</span>
-                                                 <span class="sort-icon"></span>
-                                            </span>
+                                           <span class="sort asc">
+                                                <span class="sort-label">Nom</span>
+                                                <span class="sort-icon"></span>
+                                           </span>
                                         </th>
                                         <th class="min-w-[135px]">
-                                            <span class="sort">
-                                                <span class="sort-label">Prénom</span>
-                                                <span class="sort-icon"></span>
-                                            </span>
+                                           <span class="sort">
+                                               <span class="sort-label">Prénom</span>
+                                               <span class="sort-icon"></span>
+                                           </span>
                                         </th>
                                         <th class="min-w-[135px]">
-                                            <span class="sort">
-                                                <span class="sort-label">Date de naissance</span>
-                                                <span class="sort-icon"></span>
-                                            </span>
+                                           <span class="sort">
+                                               <span class="sort-label">Date de naissance</span>
+                                               <span class="sort-icon"></span>
+                                           </span>
                                         </th>
                                         <th class="max-w-[50px]"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                    <tr>
                                         <td>Doe</td>
                                         <td>John</td>
                                         <td>10/02/2000</td>
@@ -79,6 +80,7 @@
                     <x-forms.dropdown name="user_id" :label="__('Etudiant')">
                         <option value="1">Etudiant 1</option>
                     </x-forms.dropdown>
+
 
                     <x-forms.primary-button>
                         {{ __('Valider') }}

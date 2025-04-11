@@ -22,41 +22,43 @@
                                     <thead>
                                     <tr>
                                         <th class="min-w-[280px]">
-                                            <span class="sort asc">
-                                                 <span class="sort-label">Promotion</span>
-                                                 <span class="sort-icon"></span>
-                                            </span>
+                                                <span class="sort asc">
+                                                    <span class="sort-label">Promotion</span>
+                                                    <span class="sort-icon"></span>
+                                                </span>
                                         </th>
                                         <th class="min-w-[135px]">
-                                            <span class="sort">
-                                                <span class="sort-label">Année</span>
-                                                <span class="sort-icon"></span>
-                                            </span>
+                                                <span class="sort">
+                                                    <span class="sort-label">Year</span>
+                                                    <span class="sort-icon"></span>
+                                                </span>
                                         </th>
                                         <th class="min-w-[135px]">
-                                            <span class="sort">
-                                                <span class="sort-label">Etudiants</span>
-                                                <span class="sort-icon"></span>
-                                            </span>
+                                                <span class="sort">
+                                                    <span class="sort-label">Students</span>
+                                                    <span class="sort-icon"></span>
+                                                </span>
                                         </th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @foreach ($promotions as $promotion)
                                         <tr>
-                                        <td>
-                                            <div class="flex flex-col gap-2">
-                                                <a class="leading-none font-medium text-sm text-gray-900 hover:text-primary"
-                                                   href="{{ route('cohort.show', 1) }}">
-                                                    Promotion B1
-                                                </a>
-                                                <span class="text-2sm text-gray-700 font-normal leading-3">
-                                                    Cergy
-                                                </span>
-                                            </div>
-                                        </td>
-                                        <td>2024-2025</td>
-                                        <td>34</td>
-                                    </tr>
+                                            <td>
+                                                <div class="flex flex-col gap-2">
+                                                    <a class="leading-none font-medium text-sm text-gray-900 hover:text-primary"
+                                                       href="{{ route('cohort.show', $promotion->id) }}">
+                                                        {{ $promotion->name }}
+                                                    </a>
+                                                    <span class="text-2sm text-gray-700 font-normal leading-3">
+                                                            {{ $promotion->description }}  <!-- Changed here -->
+                                                        </span>
+                                                </div>
+                                            </td>
+                                            <td>{{ $promotion->start_date }} - {{ $promotion->end_date }}</td>
+                                            <td>{{ $promotion->students_count }}</td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -76,25 +78,34 @@
                 </div>
             </div>
         </div>
+
+        <!-- Form to add a new promotion -->
         <div class="lg:col-span-1">
             <div class="card h-full">
                 <div class="card-header">
                     <h3 class="card-title">
-                        Ajouter une promotion
+                        Add a promotion
                     </h3>
                 </div>
                 <div class="card-body flex flex-col gap-5">
-                    <x-forms.input name="name" :label="__('Nom')" />
+                    <!-- Form -->
+                    <form action="{{ route('cohort.store') }}" method="POST">
+                        @csrf
 
-                    <x-forms.input name="description" :label="__('Description')" />
+                        <x-forms.input name="name" :label="__('Name')" required />
 
-                    <x-forms.input type="date" name="year" :label="__('Début de l\'année')" placeholder="" />
+                        <x-forms.input name="description" :label="__('Description')" required /> <!-- Changed here -->
 
-                    <x-forms.input type="date" name="year" :label="__('Fin de l\'année')" placeholder="" />
+                        <x-forms.input type="date" name="start_date" :label="__('Start of the year')" required />
 
-                    <x-forms.primary-button>
-                        {{ __('Valider') }}
-                    </x-forms.primary-button>
+                        <x-forms.input type="date" name="end_date" :label="__('End of the year')" required />
+
+                        <x-forms.input name="school_id" :label="__('School')" required />
+
+                        <x-forms.primary-button>
+                            {{ __('Submit') }}
+                        </x-forms.primary-button>
+                    </form>
                 </div>
             </div>
         </div>
