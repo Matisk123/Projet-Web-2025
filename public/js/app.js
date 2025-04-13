@@ -10440,10 +10440,13 @@ process.umask = function() { return 0; };
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 /* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
+/* harmony import */ var _students__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./students */ "./resources/js/students.js");
+/* harmony import */ var _students__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_students__WEBPACK_IMPORTED_MODULE_2__);
 
 
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"];
 alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].start();
+
 
 /***/ }),
 
@@ -10459,6 +10462,48 @@ __webpack_require__.r(__webpack_exports__);
 
 window.axios = axios__WEBPACK_IMPORTED_MODULE_0__["default"];
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+/***/ }),
+
+/***/ "./resources/js/students.js":
+/*!**********************************!*\
+  !*** ./resources/js/students.js ***!
+  \**********************************/
+/***/ (() => {
+
+document.addEventListener('DOMContentLoaded', function () {
+  var form = document.getElementById('student-form');
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); // ⛔ empêche l'envoi classique
+
+      var formData = new FormData(form);
+      fetch(form.action, {
+        method: 'POST',
+        headers: {
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+          'Accept': 'application/json'
+        },
+        body: formData
+      }).then(function (response) {
+        if (!response.ok) throw new Error('Erreur réseau');
+        return response.json();
+      }).then(function (data) {
+        console.log('Réponse AJAX :', data); // ✅ DEBUG
+
+        // Ajout dynamique dans le tableau
+        var tbody = document.getElementById('student-table-body');
+        var tr = document.createElement('tr');
+        tr.innerHTML = "\n                    <td>".concat(data.student.last_name, "</td>\n                    <td>").concat(data.student.first_name, "</td>\n                    <td>").concat(data.student.birth_date, "</td>\n                    <td>\n                        <div class=\"flex items-center justify-between\">\n                            <a href=\"#\"><i class=\"text-success ki-filled ki-shield-tick\"></i></a>\n                            <a class=\"hover:text-primary cursor-pointer\" href=\"#\" data-modal-toggle=\"#student-modal\">\n                                <i class=\"ki-filled ki-cursor\"></i>\n                            </a>\n                        </div>\n                    </td>\n                ");
+        tbody.appendChild(tr);
+        form.reset(); // 💫 Reset du formulaire après ajout
+      })["catch"](function (error) {
+        console.error('Erreur AJAX :', error);
+        alert("Une erreur est survenue.");
+      });
+    });
+  }
+});
 
 /***/ }),
 
@@ -10534,6 +10579,18 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 				}
 /******/ 			}
 /******/ 			return result;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
 /******/ 		};
 /******/ 	})();
 /******/ 	

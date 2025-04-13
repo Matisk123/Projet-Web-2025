@@ -13,6 +13,7 @@ use App\Http\Controllers\KnowledgeController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
 
 
 
@@ -58,6 +59,10 @@ Route::middleware('auth')->group(function () {
         // Students
         Route::get('students', [StudentController::class, 'index'])->name('student.index');
         Route::post('/students', [StudentController::class, 'store'])->name('student.store');
+        Route::get('/students/{id}', [StudentController::class, 'show']);
+        Route::put('/students/{id}', [StudentController::class, 'update'])->name('student.update');
+        Route::delete('/students/{id}', [StudentController::class, 'destroy'])->name('student.destroy');
+        Route::get('/students', [StudentController::class, 'index'])->name('student.index');
 
 
 
@@ -102,6 +107,15 @@ Route::get('/score', function () {
     return view('score');
 })->name('score');
 
+
+Route::get('/test-mail', function () {
+    Mail::raw('Mail de test en mode log.', function ($message) {
+        $message->to('exemple@exemple.com')
+            ->subject('Test Log Mail');
+    });
+
+    return 'Mail simulé envoyé !';
+});
 
 
 

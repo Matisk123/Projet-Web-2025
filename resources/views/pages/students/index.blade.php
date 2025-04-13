@@ -59,9 +59,22 @@
                                                     </a>
 
                                                     <a class="hover:text-primary cursor-pointer" href="#"
-                                                       data-modal-toggle="#student-modal">
+                                                       data-modal-toggle="#student-modal"
+                                                       data-id="{{ $student->id }}"
+                                                       data-last-name="{{ $student->last_name }}"
+                                                       data-first-name="{{ $student->first_name }}"
+                                                       data-birth-date="{{ $student->birth_date }}"
+                                                       data-email="{{ $student->email }}">
                                                         <i class="ki-filled ki-cursor"></i>
                                                     </a>
+
+                                                    <form action="{{ route('student.destroy', $student->id) }}" method="POST" style="display: inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="text-danger bg-transparent border-0">
+                                                            <i class="ki-filled ki-trash"></i>
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </td>
                                         </tr>
@@ -113,6 +126,32 @@
         </div>
     </div>
     <!-- end: grid -->
+    @include('pages.students.student-modal')
+
 </x-app-layout>
 
-@include('pages.students.student-modal')
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const editButtons = document.querySelectorAll('[data-modal-toggle="#student-modal"]');
+
+        editButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                const studentId = event.target.dataset.id;
+                const studentLastName = event.target.dataset.lastName;
+                const studentFirstName = event.target.dataset.firstName;
+                const studentBirthDate = event.target.dataset.birthDate;
+                const studentEmail = event.target.dataset.email;
+
+                document.getElementById('student-id').value = studentId;
+                document.getElementById('student-last-name').value = studentLastName;
+                document.getElementById('student-first-name').value = studentFirstName;
+                document.getElementById('student-birth-date').value = studentBirthDate;
+                document.getElementById('student-email').value = studentEmail;
+
+                const form = document.querySelector('#student-modal form');
+                form.action = `/students/${studentId}`;
+            });
+        });
+    });
+</script>
