@@ -13,6 +13,17 @@ class Cohort extends Model
     {
         return $this->belongsTo(School::class);
     }
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'users_cohorts');
+    }
 
+    public function students()
+    {
+        return $this->belongsToMany(User::class, 'users_cohorts');
+    }
 
+    public static function getCohortBySchoolId($schoolId) {
+        return self::with(['students', 'school'])->where('school_id', $schoolId)->get();
+    }
 }

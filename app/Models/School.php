@@ -18,5 +18,9 @@ class School extends Model
         return $this->hasMany(Cohort::class);
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'users_schools');
+    }
 
 }

@@ -42,14 +42,21 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>Doe</td>
-                                        <td>John</td>
-                                        <td>10/02/2000</td>
-                                        <td class="cursor-pointer pointer">
-                                            <i class="ki-filled ki-trash"></i>
-                                        </td>
-                                    </tr>
+                                    @foreach ($cohortStudents as $student)
+                                        <tr>
+                                            <td>{{ $student->last_name }}</td>
+                                            <td>{{ $student->first_name }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($student->birth_date)->format('d/m/Y') }}</td>
+                                            <td>
+                                                <form action="{{ route('cohort.student.remove', [$cohort, $student]) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">Retirer</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
                                     </tbody>
                                 </table>
                             </div>
@@ -77,14 +84,18 @@
                     </h3>
                 </div>
                 <div class="card-body flex flex-col gap-5">
-                    <x-forms.dropdown name="user_id" :label="__('Etudiant')">
-                        <option value="1">Etudiant 1</option>
+                    <form action="{{ route('cohort.student.add', $cohort) }}" method="POST">
+                        @csrf
+                    <x-forms.dropdown name="user_id" :label="__('Student')">
+                        @foreach($students as $student)
+                            <option value="{{ $student->id }}">{{ $student->full_name }}</option>
+                        @endforeach
                     </x-forms.dropdown>
-
 
                     <x-forms.primary-button>
                         {{ __('Valider') }}
                     </x-forms.primary-button>
+                    </form>
                 </div>
             </div>
         </div>

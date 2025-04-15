@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cohort;
 use App\Models\User;
+use App\Models\UserCohort;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -17,7 +18,7 @@ class CohortController extends Controller
      */
     public function index() {
         // return view('pages.cohorts.index');
-        $promotions = Cohort::with('school')->get();
+        $promotions = Cohort::getCohortBySchoolId(1);
         return view('pages.cohorts.index', compact('promotions'));
     }
 
@@ -28,12 +29,37 @@ class CohortController extends Controller
      * @return Application|Factory|object|View
      */
     public function show(Cohort $cohort) {
+        $students = User::getUserByRole('student', 1);
 
         return view('pages.cohorts.show', [
-            'cohort' => $cohort
+            'cohort' => $cohort,
+            'cohortStudents' => $cohort->students,
+            'students' => $students,
+        ]);
+    }
+
+    public function addStudent(Cohort $cohort, Request $request) {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+        ]);
+        $user = User::find($request->user_id);
+
+        // Link User with Cohort
+        UserCohort::create([
+            'user_id' => $user->id,
+            'cohort_id' => $cohort->id,
         ]);
 
+        return redirect()->route('cohort.show', $cohort)->with('success', 'Étudiant ajouté avec succès !');
     }
+
+    public function removeStudent(Cohort $cohort, User $student)
+    {
+        $cohort->students()->detach($student->id);
+
+        return redirect()->route('cohort.show', $cohort)->with('success', 'Étudiant retiré avec succès.');
+    }
+
 
     public function store(Request $request)
     {

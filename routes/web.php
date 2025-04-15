@@ -49,7 +49,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/cohorts', [CohortController::class, 'store'])->name('cohort.store');
         Route::delete('/cohort/{cohort}', [\App\Http\Controllers\CohortController::class, 'destroy'])->name('cohort.destroy');
 
-
+        Route::get('/cohorts/create', [CohortController::class, 'create'])->name('cohort.create');
+        Route::post('/cohorts/student/add/{cohort}', [CohortController::class, 'addStudent'])->name('cohort.student.add');
+        Route::delete('/cohorts/student/remove/{cohort}/{student}', [CohortController::class, 'removeStudent'])->name('cohort.student.remove');
 
 
         // Teachers
@@ -68,7 +70,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/students/{id}', [StudentController::class, 'show']);
         Route::put('/students/{id}', [StudentController::class, 'update'])->name('student.update');
         Route::delete('/students/{id}', [StudentController::class, 'destroy'])->name('student.destroy');
-        Route::get('/students', [StudentController::class, 'index'])->name('student.index');
 
 
 

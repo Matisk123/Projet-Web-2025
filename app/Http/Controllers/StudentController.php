@@ -46,7 +46,6 @@ class StudentController extends Controller
             'user_id' => $student->id,
             'school_id' => auth()->user()->school_id ?? 1,
             'role' => 'student',
-
         ]);
 
         Mail::to([$student->email, 'otheremail@example.com'])

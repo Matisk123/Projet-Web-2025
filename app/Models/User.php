@@ -98,4 +98,21 @@ class User extends Authenticatable
         return $this->hasMany(UserSchool::class);
     }
 
+    public function schools()
+    {
+        return $this->belongsToMany(School::class, 'users_schools');
+    }
+
+    public function cohorts()
+    {
+        return $this->belongsToMany(Cohort::class, 'users_cohorts');
+    }
+
+    public static function getUserByRole(string $role, int $schoolId) {
+        return self::leftJoin('users_schools as US', 'US.user_id', '=', 'users.id')
+                        ->where('US.role', $role)
+                        ->where('US.school_id', $schoolId)
+                        ->select('users.*', 'US.role')
+                        ->get();
+    }
 }
