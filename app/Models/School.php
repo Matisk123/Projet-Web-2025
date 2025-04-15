@@ -17,4 +17,6 @@ class School extends Model
     {
         return $this->hasMany(Cohort::class);
     }
+
+
 }

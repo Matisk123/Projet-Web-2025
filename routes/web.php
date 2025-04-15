@@ -50,9 +50,15 @@ Route::middleware('auth')->group(function () {
         Route::delete('/cohort/{cohort}', [\App\Http\Controllers\CohortController::class, 'destroy'])->name('cohort.destroy');
 
 
+
+
         // Teachers
         Route::get('/teachers', [TeacherController::class, 'index'])->name('teacher.index');
-
+        Route::post('/teachers', [TeacherController::class, 'store'])->name('teacher.store');
+        Route::get('/teachers/{id}', [TeacherController::class, 'show']);
+        Route::put('/teachers/{id}', [TeacherController::class, 'update'])->name('teacher.update');
+        Route::delete('/teachers/{id}', [TeacherController::class, 'destroy'])->name('teacher.destroy');
+        Route::get('/teachers', [TeacherController::class, 'index'])->name('teacher.index');
 
 
 

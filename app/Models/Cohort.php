@@ -13,4 +13,6 @@ class Cohort extends Model
     {
         return $this->belongsTo(School::class);
     }
+
+
 }

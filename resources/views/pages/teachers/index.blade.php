@@ -37,13 +37,21 @@
                                                 <span class="sort-icon"></span>
                                             </span>
                                         </th>
+                                        <th class="min-w-[135px]">
+                                            <span class="sort">
+                                                <span class="sort-label">Date de naissance</span>
+                                                <span class="sort-icon"></span>
+                                            </span>
+                                        </th>
                                         <th class="w-[70px]"></th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @foreach ($teachers as $teacher)
                                         <tr>
-                                            <td>Doe</td>
-                                            <td>John</td>
+                                            <td>{{ $teacher->last_name }}</td>
+                                            <td>{{ $teacher->first_name }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($teacher->birth_date)->format('d/m/Y') }}</td>
                                             <td>
                                                 <div class="flex items-center justify-between">
                                                     <a href="#">
@@ -51,27 +59,26 @@
                                                     </a>
 
                                                     <a class="hover:text-primary cursor-pointer" href="#"
-                                                       data-modal-toggle="#student-modal">
+                                                       data-modal-toggle="#teacher-modal"
+                                                       data-id="{{ $teacher->id }}"
+                                                       data-last-name="{{ $teacher->last_name }}"
+                                                       data-first-name="{{ $teacher->first_name }}"
+                                                       data-birth-date="{{ $teacher->birth_date }}"
+                                                       data-email="{{ $teacher->email }}">
                                                         <i class="ki-filled ki-cursor"></i>
                                                     </a>
+
+                                                    <form action="{{ route('teacher.destroy', $teacher->id) }}" method="POST" style="display: inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="text-danger bg-transparent border-0">
+                                                            <i class="ki-filled ki-trash"></i>
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td>Joe</td>
-                                            <td>Dohn</td>
-                                            <td>
-                                                <div class="flex items-center justify-between">
-                                                    <a href="#">
-                                                        <i class="text-danger ki-filled ki-shield-cross"></i>
-                                                    </a>
-                                                    <a class="hover:text-primary cursor-pointer" href="#"
-                                                       data-modal-toggle="#student-modal">
-                                                        <i class="ki-filled ki-cursor"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -99,13 +106,50 @@
                     </h3>
                 </div>
                 <div class="card-body flex flex-col gap-5">
-                    Formulaire à créer
-                    <!-- @todo A compléter -->
+                    <form action="{{ route('teacher.store') }}" method="POST">
+                        @csrf
+
+                        <x-forms.input name="last_name" :label="__('Nom')" required />
+                        <x-forms.input name="first_name" :label="__('Prénom')" required />
+                        <x-forms.input type="date" name="birth_date" :label="__('Date de Naissance')" required />
+                        <x-forms.input type="email" name="email" :label="__('Email')" required />
+
+                        <x-forms.primary-button>
+                            {{ __('Valider') }}
+                        </x-forms.primary-button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
     <!-- end: grid -->
+    @include('pages.teachers.teacher-modal')
+
 </x-app-layout>
 
-@include('pages.teachers.teacher-modal')
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const editButtons = document.querySelectorAll('[data-modal-toggle="#teacher-modal"]');
+
+        editButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                const teacherId = event.target.dataset.id;
+                const teacherLastName = event.target.dataset.lastName;
+                const teacherFirstName = event.target.dataset.firstName;
+                const teacherBirthDate = event.target.dataset.birthDate;
+                const teacherEmail = event.target.dataset.email;
+
+                document.getElementById('teacher-id').value = teacherId;
+                document.getElementById('teacher-last-name').value = teacherLastName;
+                document.getElementById('teacher-first-name').value = teacherFirstName;
+                document.getElementById('teacher-birth-date').value = teacherBirthDate;
+                document.getElementById('teacher-email').value = teacherEmail;
+
+                const form = document.querySelector('#teacher-modal form');
+                form.action = `/teacher/${teacherId}`;
+            });
+        });
+    });
+</script>
