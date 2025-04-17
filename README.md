@@ -223,8 +223,10 @@ Modifier : pour mettre à jour les informations
 
 Supprimer : pour la retirer définitivement
 
-❌ Lorsque vous cliquez sur Modifier, vous êtes redirigé vers un formulaire identique à celui de création.
+Lorsque vous cliquez sur Modifier, vous êtes redirigé vers un formulaire identique à celui de création.
 Les champs sont préremplis avec les informations de la promotion, que vous pouvez alors modifier avant de valider.
+
+Et dans le tableau, vous pouvez ensuite voir le nombre d’élèves associés à une promotion.
 
 ---
 
