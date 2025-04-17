@@ -18,17 +18,19 @@
                     </label>
                     <div class="flex items-center justify-between flex-wrap grow gap-2.5">
                         <span class="text-2sm text-gray-700">150x150px JPEG, PNG Image</span>
-                        <div class="image-input size-16" data-image-input="true">
-                            <input accept=".png, .jpg, .jpeg" name="avatar" type="file" />
-                            <input name="avatar_remove" type="hidden" />
-                            <div class="btn btn-icon btn-icon-xs btn-icon-light shadow-default absolute z-1 size-5 -top-0.5 -end-0.5 rounded-full" data-image-input-remove="" data-tooltip="#image_input_tooltip" data-tooltip-trigger="hover">
+                        <div class="image-input size-16" data-image-input="true" onclick="document.getElementById('avatarInput').click()">
+                            <input id="avatarInput" type="file" name="avatar" accept="image/*" onchange="previewImage(event)" style="display: none;">
+                            <div class="image-input-placeholder rounded-full border-2 border-success image-input-empty:border-gray-300">
+                                <div class="image-input-preview rounded-full"
+                                     style="background-image:url('{{ asset(auth()->user()->avatar ?? 'metronic/media/avatars/blank.png') }}')">
+                                </div>
+                            </div>
+                            <div class="btn btn-icon btn-icon-xs btn-icon-light shadow-default absolute z-1 size-5 -top-0.5 -end-0.5 rounded-full"
+                                 onclick="resetImage(event)">
                                 <i class="ki-filled ki-cross"></i>
                             </div>
-                            <span class="tooltip" id="image_input_tooltip">Click to remove or revert</span>
-                            <div class="image-input-placeholder rounded-full border-2 border-success image-input-empty:border-gray-300" style="background-image:url({{ asset('metronic/media/avatars/blank.png') }})">
-                                <div class="image-input-preview rounded-full" style="background-image:url({{ asset('metronic/media/avatars/300-2.png') }})"></div>
-                            </div>
                         </div>
+
                     </div>
                 </div>
 
@@ -70,3 +72,27 @@
         </form>
     </div>
 </section>
+
+<script>
+    function previewImage(event) {
+        const input = event.target;
+        const preview = input.closest('.image-input').querySelector('.image-input-preview');
+        const file = input.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.style.backgroundImage = 'url(' + e.target.result + ')';
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function resetImage(event) {
+        event.stopPropagation(); // pour éviter d’ouvrir le file picker
+        const imageInput = document.getElementById('avatarInput');
+        imageInput.value = ''; // reset le champ
+        const preview = document.querySelector('.image-input-preview');
+        preview.style.backgroundImage = 'url("{{ asset(auth()->user()->avatar ?? 'metronic/media/avatars/blank.png') }}")';
+    }
+</script>

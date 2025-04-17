@@ -27,6 +27,7 @@ class ProfileController extends Controller
      */
     public function updateProfile(ProfileUpdateRequest $request): RedirectResponse
     {
+       // dd($request->file('avatar'));
 
 
         $user = $request->user();
@@ -35,10 +36,12 @@ class ProfileController extends Controller
         $user->fill($request->validated());
 
         if ($request->hasFile('avatar')) {
-            $avatarPath = $request->file('avatar')->store('avatars', 'public');
-            $user->avatar = $avatarPath;
+            $file = $request->file('avatar');
+            $destinationPath = public_path('metronic/media/avatars');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move($destinationPath, $fileName);
+            $user->avatar = 'metronic/media/avatars/' . $fileName;
         }
-
         $user->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
