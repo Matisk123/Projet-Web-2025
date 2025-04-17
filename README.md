@@ -144,6 +144,7 @@ enseignants peuvent être affecté à plusieurs promotions
 
 ### Réalisation : 
 
+---
 
 ## 3ème Story
 
@@ -184,6 +185,7 @@ Le mot de passe par défaut est toujours "123456".
 Enfin, en accédant à la page d’une promotion, vous verrez un tableau représentant cette promotion ainsi qu’un formulaire à côté.
 Ce formulaire contient une liste déroulante avec tous les étudiants créés. En sélectionnant un étudiant et en cliquant sur Valider, celui-ci est ajouté à la promotion.
 
+---
 
 ## 4ème Story
 
@@ -224,6 +226,7 @@ Supprimer : pour la retirer définitivement
 ❌ Lorsque vous cliquez sur Modifier, vous êtes redirigé vers un formulaire identique à celui de création.
 Les champs sont préremplis avec les informations de la promotion, que vous pouvez alors modifier avant de valider.
 
+---
 
 ## 5ème Story
 
@@ -267,6 +270,7 @@ Lorsqu’un enseignant est créé, un email est automatiquement envoyé côté b
 
 Le mot de passe par défaut est toujours "123456".
 
+---
 
 ## 6ème Story
 
