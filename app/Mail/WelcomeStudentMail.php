@@ -28,7 +28,7 @@ class WelcomeStudentMail extends Mailable {
     */
     public function build()
     {
-        return $this->view('emails.welcome_student')  // Vérifie que ce fichier existe dans resources/views/emails/
+        return $this->view('emails.welcome_student')
         ->with([
         'student' => $this->student,
         'password' => $this->password,

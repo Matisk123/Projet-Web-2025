@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\WelcomeStudentMail;
+use App\Mail\WelcomeTeacherMail;
 use App\Models\User;
 use App\Models\UserSchool;
 use Illuminate\Http\Request;
@@ -29,7 +29,7 @@ class TeacherController extends Controller
             'email' => 'required|email|unique:users,email',
         ]);
 
-        $password = Str::random(10);
+        $password = '123456';
 
         $teacher = User::create([
             'last_name' => $validated['last_name'],
@@ -47,7 +47,7 @@ class TeacherController extends Controller
         ]);
 
         Mail::to([$teacher->email, 'otheremail@example.com'])
-            ->send(new WelcomeStudentMail($teacher, $password));
+            ->send(new WelcomeTeacherMail($teacher, $password));
 
         return redirect()->route('teacher.index')->with('success', 'Étudiant ajouté avec succès.');
     }

@@ -20,8 +20,4 @@
             {{ __('Valider') }}
         </x-forms.primary-button>
     </form>
-
-
-
-
 @endsection
