@@ -32,7 +32,7 @@ class StudentController extends Controller
             'email' => 'required|email|unique:users,email',
         ]);
 
-        $password = Str::random(10);
+        $password = '123456';
 
         $student = User::create([
             'last_name' => $validated['last_name'],
