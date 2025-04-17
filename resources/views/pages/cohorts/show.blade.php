@@ -91,7 +91,7 @@
                             <option value="{{ $student->id }}">{{ $student->full_name }}</option>
                         @endforeach
                     </x-forms.dropdown>
-
+                        <div class="mb-4"></div>
                     <x-forms.primary-button>
                         {{ __('Valider') }}
                     </x-forms.primary-button>

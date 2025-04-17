@@ -20,10 +20,18 @@ class Cohort extends Model
 
     public function students()
     {
-        return $this->belongsToMany(User::class, 'users_cohorts');
+        return $this->belongsToMany(User::class, 'users_cohorts', 'cohort_id', 'user_id');
     }
 
     public static function getCohortBySchoolId($schoolId) {
-        return self::with(['students', 'school'])->where('school_id', $schoolId)->get();
+        return self::with(['students', 'school'])
+            ->where('school_id', $schoolId)
+            ->get();
+    }
+
+    public function getStudentsCountAttribute()
+    {
+        return $this->students()->count();
     }
 }
+

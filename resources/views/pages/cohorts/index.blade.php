@@ -59,15 +59,30 @@
                                             <td>{{ $promotion->start_date }} - {{ $promotion->end_date }}</td>
                                             <td>{{ $promotion->students_count }}</td>
                                             <td>
-                                                <form action="{{ route('cohort.destroy', $promotion->id) }}" method="POST"
-                                                      onsubmit="return confirm('Voulez-vous vraiment supprimer cette promotion ?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="text-red-600 text-xs hover:underline">
-                                                        Supprimer
-                                                    </button>
-                                                </form>
+                                                <div class="flex items-center justify-between">
+                                                    <a href="#">
+                                                        <i class="text-success ki-filled ki-shield-tick"></i>
+                                                    </a>
+                                                    <a class="hover:text-primary cursor-pointer" href="#"
+                                                       data-modal-toggle="#cohort-modal"
+                                                       data-id="{{ $promotion->id }}"
+                                                       data-name="{{ $promotion->name }}"
+                                                       data-description="{{ $promotion->description }}"
+                                                       data-start-date="{{ $promotion->start_date }}"
+                                                       data-end-date="{{ $promotion->end_date }}">
+                                                        <i class="ki-filled ki-cursor"></i>
+                                                    </a>
+
+                                                    <form action="{{ route('cohort.destroy', $promotion->id) }}" method="POST" style="display: inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="text-danger bg-transparent border-0">
+                                                            <i class="ki-filled ki-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </td>
+
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -104,10 +119,13 @@
                         @csrf
 
                         <x-forms.input name="name" :label="__('Nom de la promotion')" required />
+                        <div class="mb-4"></div>
                         <x-forms.input name="description" :label="__('Lieu')" required />
+                        <div class="mb-4"></div>
                         <x-forms.input type="date" name="start_date" :label="__('Start of the year')" required />
+                        <div class="mb-4"></div>
                         <x-forms.input type="date" name="end_date" :label="__('End of the year')" required />
-
+                        <div class="mb-4"></div>
                         <x-forms.primary-button>
                             {{ __('Valider') }}
                         </x-forms.primary-button>
@@ -117,4 +135,31 @@
         </div>
     </div>
     <!-- end: grid -->
+    @include('pages.cohorts.cohort-modal')
+
 </x-app-layout>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const editButtons = document.querySelectorAll('[data-modal-toggle="#cohort-modal"]');
+
+        editButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                const promotionId = event.target.dataset.id;
+                const promotionName = event.target.dataset.name;
+                const promotionDescription = event.target.dataset.description;
+                const promotionStartDate = event.target.dataset.startDate;
+                const promotionEndDate = event.target.dataset.endDate;
+
+                document.getElementById('promotion-id').value = promotionId;
+                document.getElementById('promotion-name').value = promotionName;
+                document.getElementById('promotion-description').value = promotionDescription;
+                document.getElementById('promotion-start-date').value = promotionStartDate;
+                document.getElementById('promotion-end-date').value = promotionEndDate;
+
+                const form = document.querySelector('#cohort-modal form');
+                form.action = `/cohort/${promotionId}`;
+            });
+        });
+    });
+</script>

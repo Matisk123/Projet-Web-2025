@@ -2,7 +2,7 @@
     <x-slot name="header">
         <h1 class="flex items-center gap-1 text-sm font-normal">
             <span class="text-gray-700">
-                {{ $header ?? __('Dashboard') }}
+                {{ __('Promotions') }}
             </span>
         </h1>
     </x-slot>
@@ -18,8 +18,26 @@
                         </h3>
                     </div>
                     <div class="card-body flex flex-col gap-5">
-                        <!-- Contenu du block 1 -->
+                        <table class="table-auto w-full text-left">
+                            <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Dates</th>
+                                <th>Élèves</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                             @foreach($promotions as $promotion)
+                                <tr>
+                                    <td>{{ $promotion->name }}</td>
+                                    <td>{{ $promotion->start_date->format('Y') }} - {{ $promotion->end_date->format('Y') }}</td>
+                                    <td>{{ $promotion->students->count() }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
+
                 </div>
             </div>
         </div>

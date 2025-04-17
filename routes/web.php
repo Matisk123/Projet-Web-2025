@@ -37,7 +37,6 @@ Route::middleware('auth')->group(function () {
 
 
 
-
     Route::middleware('verified')->group(function () {
         // Dashboard
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -55,6 +54,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/cohorts/student/add/{cohort}', [CohortController::class, 'addStudent'])->name('cohort.student.add');
         Route::delete('/cohorts/student/remove/{cohort}/{student}', [CohortController::class, 'removeStudent'])->name('cohort.student.remove');
 
+        Route::put('/cohorts/{id}', [CohortController::class, 'update'])->name('cohort.update');
+
+
+        Route::get('/dashboard-teacher', [CohortController::class, 'autreVue'])->name('dashboard.teacher');
 
         // Teachers
         Route::get('/teachers', [TeacherController::class, 'index'])->name('teacher.index');

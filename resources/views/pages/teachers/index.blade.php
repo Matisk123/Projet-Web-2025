@@ -110,10 +110,13 @@
                         @csrf
 
                         <x-forms.input name="last_name" :label="__('Nom')" required />
+                        <div class="mb-4"></div>
                         <x-forms.input name="first_name" :label="__('Prénom')" required />
+                        <div class="mb-4"></div>
                         <x-forms.input type="date" name="birth_date" :label="__('Date de Naissance')" required />
+                        <div class="mb-4"></div>
                         <x-forms.input type="email" name="email" :label="__('Email')" required />
-
+                        <div class="mb-4"></div>
                         <x-forms.primary-button>
                             {{ __('Valider') }}
                         </x-forms.primary-button>
