@@ -13,72 +13,87 @@ use Illuminate\Support\Facades\Hash;
 class ProfileController extends Controller
 {
     /**
-     * Display the user's profile form.
+     * Show the profile edit form.
      */
     public function edit(Request $request): View
     {
+        // Return the edit view with the current user data
         return view('profile.edit', [
             'user' => $request->user(),
         ]);
     }
 
     /**
-     * Update the user's profile information.
+     * Update the user's profile info (like name, phone, avatar...).
      */
     public function updateProfile(ProfileUpdateRequest $request): RedirectResponse
     {
-       // dd($request->file('avatar'));
+        $user = $request->user(); // Get the current user
+        $validated = $request->validated(); // Validate the form data
 
+        // Fill user info with validated data
+        $user->fill($validated);
 
-        $user = $request->user();
-        $validated = $request->validated();
-
-        $user->fill($request->validated());
-
+        // If user uploaded a new avatar
         if ($request->hasFile('avatar')) {
             $file = $request->file('avatar');
             $destinationPath = public_path('metronic/media/avatars');
             $fileName = time() . '_' . $file->getClientOriginalName();
+
+            // Move the uploaded file to the destination folder
             $file->move($destinationPath, $fileName);
+
+            // Save the avatar path in the database
             $user->avatar = 'metronic/media/avatars/' . $fileName;
         }
-        $user->save();
 
+        $user->save(); // Save changes to the database
+
+        // Redirect back with a success message
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
+    /**
+     * Update the user's email.
+     */
     public function updateEmail(ProfileUpdateRequest $request): RedirectResponse
     {
-        $user = $request->user();
+        $user = $request->user(); // Get the current user
 
-        // Update the email
+        // Set the new email
         $user->email = $request->validated()['email'];
 
-        // If the email is updated, mark email as unverified
+        // Mark the email as not verified anymore
         $user->email_verified_at = null;
 
-        $user->save();
+        $user->save(); // Save changes
 
         return Redirect::route('profile.edit')->with('status', 'email-updated');
     }
+
+    /**
+     * Update the user's password.
+     */
     public function updatePassword(ProfileUpdateRequest $request): RedirectResponse
     {
+        // Validate the current and new password
         $request->validate([
             'current_password' => ['required'],
             'password' => ['required', 'min:6', 'confirmed'],
         ]);
+
         $user = $request->user();
 
-        // Vérification que le mot de passe actuel est correct
+        // Check if the current password is correct
         if (!Hash::check($request->current_password, $user->password)) {
             return back()->withErrors(['current_password' => 'The current password is incorrect.']);
         }
 
-        // Mise à jour du mot de passe
+        // Update the password (encrypt it)
         $user->password = Hash::make($request->password);
         $user->save();
 
-        // Déconnexion de l'utilisateur après la mise à jour du mot de passe
+        // Log out the user after password change
         Auth::logout();
 
         return Redirect::route('profile.edit')->with('status', 'password-updated');
@@ -89,15 +104,17 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        $user = $request->user();
+        $user = $request->user(); // Get the current user
 
-        Auth::logout();
+        Auth::logout(); // Log out the user
 
-        $user->delete();
+        $user->delete(); // Delete the user from the database
 
+        // Clear the session
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
+        // Redirect to login page with a message
         return redirect()->route('login')->with('status', 'Your account has been successfully deleted.');
     }
 }
