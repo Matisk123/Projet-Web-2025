@@ -27,13 +27,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                             @foreach($promotions as $promotion)
-                                <tr>
-                                    <td>{{ $promotion->name }}</td>
-                                    <td>{{ $promotion->start_date->format('Y') }} - {{ $promotion->end_date->format('Y') }}</td>
-                                    <td>{{ $promotion->students->count() }}</td>
-                                </tr>
-                            @endforeach
+
                             </tbody>
                         </table>
                     </div>

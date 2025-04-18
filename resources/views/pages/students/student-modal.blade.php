@@ -1,6 +1,6 @@
 @extends('layouts.modal', [
     'id'    => 'student-modal',
-    'title'  => 'Informations étudiant'
+    'title'  => 'Modifier un étudiant'
 ])
 
 @section('modal-content')

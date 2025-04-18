@@ -12,6 +12,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\KnowledgeController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\TeacherCohortController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 
@@ -53,8 +54,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/cohorts/create', [CohortController::class, 'create'])->name('cohort.create');
         Route::post('/cohorts/student/add/{cohort}', [CohortController::class, 'addStudent'])->name('cohort.student.add');
         Route::delete('/cohorts/student/remove/{cohort}/{student}', [CohortController::class, 'removeStudent'])->name('cohort.student.remove');
+        Route::post('/cohort/{cohort}/add-teacher', [CohortController::class, 'addTeacher'])->name('cohort.teacher.add');
+        Route::delete('/cohorts/{cohort}/teachers/{teacher}', [CohortController::class, 'removeTeacher'])->name('cohort.teacher.remove');
 
+        Route::get('/cohorts/{cohort}', [CohortController::class, 'show'])->name('cohort.show');
         Route::put('/cohorts/{id}', [CohortController::class, 'update'])->name('cohort.update');
+
 
 
         Route::get('/dashboard-teacher', [CohortController::class, 'autreVue'])->name('dashboard.teacher');
@@ -66,6 +71,9 @@ Route::middleware('auth')->group(function () {
         Route::put('/teachers/{id}', [TeacherController::class, 'update'])->name('teacher.update');
         Route::delete('/teachers/{id}', [TeacherController::class, 'destroy'])->name('teacher.destroy');
         Route::get('/teachers', [TeacherController::class, 'index'])->name('teacher.index');
+
+
+        //Route::get('/teachers', [TeacherController::class, 'index'])->name('teachers.teacher_cohorts');
 
 
 

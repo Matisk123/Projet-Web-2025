@@ -15,12 +15,21 @@ class Cohort extends Model
     }
     public function users()
     {
-        return $this->belongsToMany(User::class, 'users_cohorts');
+        return $this->belongsToMany(User::class, 'users_cohorts', 'cohort_id', 'user_id');
     }
 
     public function students()
     {
-        return $this->belongsToMany(User::class, 'users_cohorts', 'cohort_id', 'user_id');
+        return $this->users()->whereHas('schools', function ($query) {
+            $query->where('role', 'student');
+        });
+     }
+
+    public function teachers()
+    {
+        return $this->users()->whereHas('schools', function ($query) {
+            $query->where('role', 'teacher');
+        });
     }
 
     public static function getCohortBySchoolId($schoolId) {
@@ -33,5 +42,6 @@ class Cohort extends Model
     {
         return $this->students()->count();
     }
+
 }
 

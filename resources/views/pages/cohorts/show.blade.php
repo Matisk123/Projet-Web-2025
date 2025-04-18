@@ -12,7 +12,7 @@
             <div class="grid">
                 <div class="card card-grid h-full min-w-full">
                     <div class="card-header">
-                        <h3 class="card-title">Etudiants</h3>
+                        <h3 class="card-title">Enseignant et Étudiants</h3>
                     </div>
                     <div class="card-body">
                         <div data-datatable="true" data-datatable-page-size="30">
@@ -20,6 +20,13 @@
                                 <table class="table table-border" data-datatable-table="true">
                                     <thead>
                                     <tr>
+                                        <th class="min-w-[135px]">
+                                            <span class="sort">
+                                                <span class="sort-label">Rôle</span>
+                                                <span class="sort-icon"></span>
+                                            </span>
+                                        </th>
+
                                         <th class="min-w-[135px]">
                                            <span class="sort asc">
                                                 <span class="sort-label">Nom</span>
@@ -42,8 +49,24 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @foreach ($cohortTeachers as $teacher)
+                                        <tr class="bg-yellow-100 font-bold">
+                                            <td>Enseignant</td>
+                                            <td>{{ $teacher->last_name }}</td>
+                                            <td>{{ $teacher->first_name }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($teacher->birth_date)->format('d/m/Y') }}</td>
+                                            <td>
+                                                <form action="{{ route('cohort.teacher.remove', [$cohort, $teacher]) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">Retirer</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                     @foreach ($cohortStudents as $student)
                                         <tr>
+                                            <td>Étudiant</td>
                                             <td>{{ $student->last_name }}</td>
                                             <td>{{ $student->first_name }}</td>
                                             <td>{{ \Carbon\Carbon::parse($student->birth_date)->format('d/m/Y') }}</td>
@@ -77,7 +100,7 @@
             </div>
         </div>
         <div class="lg:col-span-1">
-            <div class="card h-full">
+            <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">
                         Ajouter un étudiant à la promotion
@@ -98,6 +121,27 @@
                     </form>
                 </div>
             </div>
+            <div class="mb-4"></div>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Ajouter un professeur à la promotion</h3>
+                </div>
+                <div class="card-body flex flex-col gap-5">
+                    <form action="{{ route('cohort.teacher.add', $cohort) }}" method="POST">
+                        @csrf
+                        <x-forms.dropdown name="user_id" :label="__('Teacher')">
+                            @foreach($teachers as $teacher)
+                                <option value="{{ $teacher->id }}">{{ $teacher->full_name }}</option>
+                            @endforeach
+                        </x-forms.dropdown>
+                        <div class="mb-4"></div>
+                        <x-forms.primary-button>
+                            {{ __('Valider') }}
+                        </x-forms.primary-button>
+                    </form>
+                </div>
+            </div>
+
         </div>
     </div>
     <!-- end: grid -->

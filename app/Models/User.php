@@ -101,7 +101,7 @@ class User extends Authenticatable
 
     public function schools()
     {
-        return $this->belongsToMany(School::class, 'users_schools');
+        return $this->belongsToMany(School::class, 'users_schools')->withPivot('role');
     }
 
     public function cohorts()
@@ -116,4 +116,5 @@ class User extends Authenticatable
                         ->select('users.*', 'US.role')
                         ->get();
     }
+
 }

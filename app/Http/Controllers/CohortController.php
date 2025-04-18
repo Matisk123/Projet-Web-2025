@@ -29,7 +29,12 @@ class CohortController extends Controller
      * @return Application|Factory|View|object
      */
     public function autreVue() {
-        $promotions = Cohort::getCohortBySchoolId(1);
+        $user = auth()->user();
+
+        $promotions = Cohort::whereHas('users', function ($query) use ($user) {
+            $query->where('users.id', $user->id);
+        })->withCount('students')->get();
+
         return view('pages.dashboard.dashboard-teacher', compact('promotions'));
     }
 
@@ -40,11 +45,14 @@ class CohortController extends Controller
      */
     public function show(Cohort $cohort) {
         $students = User::getUserByRole('student', 1);
+        $teachers = User::getUserByRole('teacher', 1);
 
         return view('pages.cohorts.show', [
             'cohort' => $cohort,
             'cohortStudents' => $cohort->students,
+            'cohortTeachers' => $cohort->teachers,
             'students' => $students,
+            'teachers' => $teachers
         ]);
     }
 
@@ -58,10 +66,10 @@ class CohortController extends Controller
         $request->validate([
             'user_id' => 'required|exists:users,id',
         ]);
-        $user = User::find($request->user_id);
+        $user = User::findOrFail($request->user_id);
 
         // Link User with Cohort
-        UserCohort::create([
+        UserCohort::firstOrCreate([
             'user_id' => $user->id,
             'cohort_id' => $cohort->id,
         ]);
@@ -80,6 +88,40 @@ class CohortController extends Controller
         $cohort->students()->detach($student->id);
 
         return redirect()->route('cohort.show', $cohort)->with('success', 'Étudiant retiré avec succès.');
+    }
+
+    /**
+     * Add a student to a cohort
+     * @param Cohort $cohort
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function addTeacher(Cohort $cohort, Request $request) {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+        ]);
+        $user = User::findOrFail($request->user_id);
+
+        // Link User with Cohort
+        UserCohort::firstOrCreate([
+            'user_id' => $user->id,
+            'cohort_id' => $cohort->id,
+        ]);
+
+        return redirect()->route('cohort.show', $cohort)->with('success', 'Enseignant ajouté avec succès !');
+    }
+
+    /**
+     * Remove a student from a cohort
+     * @param Cohort $cohort
+     * @param User $teacher
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function removeTeacher(Cohort $cohort, User $teacher)
+    {
+        $cohort->teachers()->detach($teacher->id);
+
+        return redirect()->route('cohort.show', $cohort)->with('success', 'Enseignant retiré avec succès.');
     }
 
     /**

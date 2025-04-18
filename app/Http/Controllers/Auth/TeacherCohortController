@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Cohort;
+use App\Models\User;
+use App\Models\UserCohort;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
+
+class TeacherCohortController extends Controller
+{
+    /**
+     * Affiche la liste des cohortes.
+     */
+    public function index()
+    {
+        $promotions = Cohort::getCohortBySchoolId(1);
+        return view('pages.teachers.teacher_cohorts', compact('promotions'));
+    }
+}
