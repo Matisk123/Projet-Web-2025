@@ -107,6 +107,10 @@ npm run dev
 
 Ici je résumerais les taches que j'ai éffectué et comment les réalisé sur le site.
 
+Dans l'ordre :
+- Première partie : les Story et leurs tâches, avec comment réaliser chaque chose dans le site.
+- Deuxième partie : toutes les tâches, en indiquant si elles ont été effectuées, oui ou non.
+
 ---
 
 ## 1ère Story
@@ -143,6 +147,12 @@ dashboard (overview)
 enseignants peuvent être affecté à plusieurs promotions
 
 ### Réalisation : 
+
+En se connectant d'abord en tant qu'admin, vous pouvez ajouter un enseignant à une promotion, et son rôle sera indiqué.
+
+Par la suite, en vous connectant en tant qu'enseignant, vous pourrez retrouver la liste de toutes les promotions sur la page principale.
+
+En vous rendant ensuite sur la page "Vos Promotions", vous pourrez voir les promotions auxquelles vous êtes associé.
 
 ---
 
@@ -310,3 +320,44 @@ Cette dernière section permet de supprimer votre compte.
 Vous devez d’abord cocher une case de confirmation, puis cliquer sur Delete Account pour finaliser la suppression.
 
 ⚠️ Cette action est irréversible.
+
+---
+
+# Story Réalisée
+
+## Story 1
+
+✅ Avec quelques difficultés au début du projet, elle est bien réalisée et fonctionnelle.
+
+## Story 2 
+
+✅ Beaucoup de difficultés, malheureusement, cette story n'a pas pu être réalisée complètement. On peut bien associer un enseignant à une promotion, il suffit d'être connecté en tant qu'admin, d'aller dans la page d'une promotion. On y trouve deux formulaires : un pour ajouter un enseignant et un autre pour ajouter un étudiant. Une fois l'enseignant ajouté, le rôle est indiqué dans le tableau.
+❌ L’enseignant ne peut pas accéder à une liste de ses promotions depuis la page promotions.
+❌ L’enseignant ne peut pas accéder à un récapitulatif des promotions en cours (année en cours) sur son dashboard (overview).
+
+## Story 3
+
+✅ L'ensemble est plus ou moins complet, on peut créer un étudiant, modifier les informations ainsi que supprimer l'étudiant.
+✅ On peut ajouter un étudiant à une promotion et le retirer.
+✅ Un email avec un mot de passe défini est envoyé en backend. Le mot de passe défini sera "123456".
+❌ Ces actions se font via une modal et une requête AJAX. Aucun rechargement de page pour voir afficher les résultats.
+
+## Story 4
+
+✅ L’admin peut créer une promotion en saisissant un nom et des informations de base.
+✅ L’admin peut modifier ou supprimer une promotion existante.
+❌ Ces actions se font via une modal et une requête AJAX. Aucun rechargement de page pour voir afficher les résultats.
+
+## Story 5
+
+✅ L'ensemble est plus ou moins complet, on peut créer un enseignant, modifier les informations ainsi que supprimer l'enseignant.
+✅ On peut ajouter un enseignant à une promotion et le retirer.
+✅ Un email avec un mot de passe défini est envoyé en backend. Le mot de passe défini sera "123456".
+❌ Ces actions se font via une modal et une requête AJAX. Aucun rechargement de page pour voir afficher les résultats.
+
+## Story 6
+
+✅ L'utilisateur peut modifier son nom, prénom.
+✅ L'utilisateur peut changer sa photo de profil.
+✅ L'utilisateur peut modifier son email.
+✅ L'utilisateur peut supprimer son compte.
