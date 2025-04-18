@@ -327,37 +327,37 @@ Vous devez d’abord cocher une case de confirmation, puis cliquer sur Delete Ac
 
 ## Story 1
 
-✅ Avec quelques difficultés au début du projet, elle est bien réalisée et fonctionnelle.
+- ✅ Avec quelques difficultés au début du projet, elle est bien réalisée et fonctionnelle.
 
 ## Story 2 
 
-✅ Beaucoup de difficultés, malheureusement, cette story n'a pas pu être réalisée complètement. On peut bien associer un enseignant à une promotion, il suffit d'être connecté en tant qu'admin, d'aller dans la page d'une promotion. On y trouve deux formulaires : un pour ajouter un enseignant et un autre pour ajouter un étudiant. Une fois l'enseignant ajouté, le rôle est indiqué dans le tableau.
-❌ L’enseignant ne peut pas accéder à une liste de ses promotions depuis la page promotions.
-❌ L’enseignant ne peut pas accéder à un récapitulatif des promotions en cours (année en cours) sur son dashboard (overview).
+- ✅ Beaucoup de difficultés, malheureusement, cette story n'a pas pu être réalisée complètement. On peut bien associer un enseignant à une promotion, il suffit d'être connecté en tant qu'admin, d'aller dans la page d'une promotion. On y trouve deux formulaires : un pour ajouter un enseignant et un autre pour ajouter un étudiant. Une fois l'enseignant ajouté, le rôle est indiqué dans le tableau.
+- ❌ L’enseignant ne peut pas accéder à une liste de ses promotions depuis la page promotions.
+- ❌ L’enseignant ne peut pas accéder à un récapitulatif des promotions en cours (année en cours) sur son dashboard (overview).
 
 ## Story 3
 
-✅ L'ensemble est plus ou moins complet, on peut créer un étudiant, modifier les informations ainsi que supprimer l'étudiant.
-✅ On peut ajouter un étudiant à une promotion et le retirer.
-✅ Un email avec un mot de passe défini est envoyé en backend. Le mot de passe défini sera "123456".
-❌ Ces actions se font via une modal et une requête AJAX. Aucun rechargement de page pour voir afficher les résultats.
+- ✅ L'ensemble est plus ou moins complet, on peut créer un étudiant, modifier les informations ainsi que supprimer l'étudiant.
+- ✅ On peut ajouter un étudiant à une promotion et le retirer.
+- ✅ Un email avec un mot de passe défini est envoyé en backend. Le mot de passe défini sera "123456".
+- ❌ Ces actions se font via une modal et une requête AJAX. Aucun rechargement de page pour voir afficher les résultats.
 
 ## Story 4
 
-✅ L’admin peut créer une promotion en saisissant un nom et des informations de base.
-✅ L’admin peut modifier ou supprimer une promotion existante.
-❌ Ces actions se font via une modal et une requête AJAX. Aucun rechargement de page pour voir afficher les résultats.
+- ✅ L’admin peut créer une promotion en saisissant un nom et des informations de base.
+- ✅ L’admin peut modifier ou supprimer une promotion existante.
+- ❌ Ces actions se font via une modal et une requête AJAX. Aucun rechargement de page pour voir afficher les résultats.
 
 ## Story 5
 
-✅ L'ensemble est plus ou moins complet, on peut créer un enseignant, modifier les informations ainsi que supprimer l'enseignant.
-✅ On peut ajouter un enseignant à une promotion et le retirer.
-✅ Un email avec un mot de passe défini est envoyé en backend. Le mot de passe défini sera "123456".
-❌ Ces actions se font via une modal et une requête AJAX. Aucun rechargement de page pour voir afficher les résultats.
+- ✅ L'ensemble est plus ou moins complet, on peut créer un enseignant, modifier les informations ainsi que supprimer l'enseignant.
+- ✅ On peut ajouter un enseignant à une promotion et le retirer.
+- ✅ Un email avec un mot de passe défini est envoyé en backend. Le mot de passe défini sera "123456".
+- ❌ Ces actions se font via une modal et une requête AJAX. Aucun rechargement de page pour voir afficher les résultats.
 
 ## Story 6
 
-✅ L'utilisateur peut modifier son nom, prénom.
-✅ L'utilisateur peut changer sa photo de profil.
-✅ L'utilisateur peut modifier son email.
-✅ L'utilisateur peut supprimer son compte.
+- ✅ L'utilisateur peut modifier son nom, prénom.
+- ✅ L'utilisateur peut changer sa photo de profil.
+- ✅ L'utilisateur peut modifier son email.
+- ✅ L'utilisateur peut supprimer son compte.
